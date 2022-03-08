@@ -1,4 +1,7 @@
 # base
+Test for Linux,Android and Web.
+Linux,Android use SQLITE
+Web use Firebase-Firestore (anonymous user)
 
 A new Flutter project.
 
