@@ -5,6 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:base/utili/variabili/global.dart' as globali;
+/// IN LINUX
+/// MODIFICARE IN Costanti.dart
+/// static const String nomeLinuxDB = '/home/franco/Documenti/mydb.db';
+/// IN Terminal prima del comando :  flutter run -d linux
+///  CHROME_EXECUTABLE=/snap/bin/chromium; export CHROME_EXECUTABLE
+///  nel caso si usi chromium
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (SQLHelper.os == 'Windows' || SQLHelper.os == 'Linux') {
