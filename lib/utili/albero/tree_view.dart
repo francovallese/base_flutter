@@ -201,7 +201,7 @@ class TreeView extends StatelessWidget {
         String ret =
             "Il file contiene la classe MyInvarcaFunzioni che con le sue funzioni fa da ponte"
             "\ntra la maschera di input (miaModale in visual.dart) e le funzioni a basso livello"
-            "\nper l'accesso al database(sql_helper.dart)."
+            "\nper l'accesso al database(sql_helper.dart);"
             "\n"
             "\naddItem() -> Per inserire un nuovo record(leggi documento in Firestore)."
             "\n"

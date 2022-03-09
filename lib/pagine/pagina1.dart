@@ -84,7 +84,6 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
         "RADIO SCELTA funzione " + f.toString() + "\n Scelta Menu con:";
     List<String> scelte = Costanti.scelteGruppoOpzioniMenu;
     int inEvidenza = globali.gruppoRadioMenu;
-    //debugPrint("PRIMA GLOBAL:"+inEvidenza.toString());
     await Utili.mostraRadioScelta(context, scelte, inEvidenza, msg, this);
     //debugPrint("DOPO GLOBAL:"+globali.gruppoRadioMenu.toString());
   }
