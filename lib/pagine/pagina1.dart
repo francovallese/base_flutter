@@ -56,13 +56,13 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
   }
 
   corpo() {
-    return TreeView(
+    return TreeView(context: context,
       data: treeMenu,
     );
   }
 
   miaApp() {
-    return TreeView(
+    return TreeView(context: context,
       data: treeApp,
     );
   }
