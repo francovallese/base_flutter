@@ -26,7 +26,8 @@ class Costanti {
   static const Color coloreIconaMenuO = Colors.blueGrey;
   static const Color coloreTitoloBarra = Colors.blue;
   static const Color coloreFrecciaBack = Colors.black;
-
+  static const Color coloreBgTestoBottoneTree = Colors.tealAccent;
+  static const Color coloreFgTestoBottoneTree = Colors.indigo;
   static const String titolo = 'Titolo';
   static const String titoloApp = 'Home';
   // PATH DATABASE

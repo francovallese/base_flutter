@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TreeNode extends StatefulWidget {
+  final String riga;
   final int level;
   final bool expaned;
   final double offsetLeft;
@@ -14,18 +15,20 @@ class TreeNode extends StatefulWidget {
   final Function? leadingOnTap;
   final Function? trailingOnTap;
 
-  const TreeNode({
+  const TreeNode({Key? key,
+
     this.level = 0,
-    this.expaned = false,
+    this.expaned = true,
     this.offsetLeft = 20.0,
     this.children = const [],
     this.title = const Text('Title'),
+    this.riga = "",
     this.leading = const Text(''),
 
     this.trailing =  const IconButton(
       mouseCursor:  SystemMouseCursors.click,
-      icon: Icon(Icons.expand_more),
-      iconSize: 32, // 16
+      icon: Icon(Icons.arrow_downward),
+      iconSize: 12, // 16
       onPressed: null,
       //onPressed: () {
       //  print('x');
@@ -40,7 +43,7 @@ class TreeNode extends StatefulWidget {
     this.titleOnTap,
     this.leadingOnTap,
     this.trailingOnTap,
-  });
+  }) : super(key: key);
 
   @override
   _TreeNodeState createState() => _TreeNodeState();
@@ -50,10 +53,10 @@ class TreeNode extends StatefulWidget {
 
 class _TreeNodeState extends State<TreeNode>
     with SingleTickerProviderStateMixin {
-  bool _isExpaned = false;
+  bool _isExpaned = true;
 
   late AnimationController _rotationController;
-  final Tween<double> _turnsTween = Tween<double>(begin: 0.0, end: -0.5);
+  final Tween<double> _turnsTween = Tween<double>(begin: 0.0, end: -0.25);
 
   @override
   initState() {
@@ -61,6 +64,9 @@ class _TreeNodeState extends State<TreeNode>
     _rotationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
+        //value: 0.5,
+        //lowerBound: 0.0,
+        //upperBound: 0.5
     );
     super.initState();
   }
@@ -80,18 +86,20 @@ class _TreeNodeState extends State<TreeNode>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
-              const SizedBox(width: 6.0),
+              //const SizedBox(width: 6.0),
               Visibility(
                 visible: children.isNotEmpty,
-                child: Center(
+                child: Container(
+                  height: 24,
+                  color:Colors.transparent,
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
                         _isExpaned = !_isExpaned;
                         if (_isExpaned) {
-                          _rotationController.forward();
-                        } else {
                           _rotationController.reverse();
+                        } else {
+                          _rotationController.forward();
                         }
                         if (widget.trailingOnTap != null &&
                             widget.trailingOnTap is Function) {
@@ -100,11 +108,13 @@ class _TreeNodeState extends State<TreeNode>
                       });
                     },
                     child: RotationTransition(
+                      alignment: Alignment.center,
                       child: widget.trailing ??
                           IconButton(
+                            alignment: Alignment.center,
                             //RmouseCursor: ,
-                            icon: const Icon(Icons.expand_more),
-                            iconSize: 32, // 16
+                            icon: const Icon(Icons.arrow_downward),
+                            iconSize: 12, // 16
                             onPressed: () {},
                           ),
                       turns: _turnsTween.animate(_rotationController),
@@ -117,9 +127,14 @@ class _TreeNodeState extends State<TreeNode>
               //child:
               GestureDetector(
                 onTap: () {
+
                   if (widget.titleOnTap != null &&
                       widget.titleOnTap is Function) {
-                    widget.titleOnTap!();
+
+                    var xx = widget.title as Text;
+
+                    String s = xx.data!;
+                    widget.titleOnTap!(s);
                   }
                 },
                 child: widget.title ?? Container(),
@@ -135,10 +150,12 @@ class _TreeNodeState extends State<TreeNode>
               left: level + 1 * offsetLeft,
               right: level + 1 * offsetLeft,
             ),
-            child: Column(
+            child: Container(
+                color:Colors.transparent,
+                child:Column(
               children: widget.children,
               crossAxisAlignment: CrossAxisAlignment.start,
-            ),
+            )),
           ),
         ),
       ],
