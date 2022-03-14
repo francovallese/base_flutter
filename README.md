@@ -3,8 +3,10 @@
 - Linux,Android use SQLITE.
 - Web use Firebase-Firestore (anonymous user).
 - Insert Tooltip in pagina 1 TreeView.
+- remove Tooltip insert AlertDialog
+- checked the use on my mobile(still a size problem in AppBar)
 
-A new Flutter project.
+
 
 ## Getting Started
 
