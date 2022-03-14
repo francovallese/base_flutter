@@ -556,11 +556,6 @@ class PaginaConVideoState extends State<PaginaConVideo> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double height = width * 9 / 16;
     return FutureBuilder(
       future: _initializeVideoPlayerFuture,
       builder: (context, snapshot) {
