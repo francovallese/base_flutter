@@ -52,10 +52,10 @@ Widget getElementoMenu(BuildContext context, Percorribile percorribile,
             }
           },
           child: Tooltip(
-            message: percorribile.testoCalamaio()[indice],
+            message: percorribile.listaIcone()[indice].nome, //.testoCalamaio()[indice],
             child: CircleAvatar(
               radius: altezza / 2,
-              child: icona(percorribile, indice, pm, altezza * 85 / 100),
+              child: creaIcona(percorribile, indice, pm, altezza * 85 / 100), //icona(percorribile, indice, pm, altezza * 85 / 100),
               backgroundColor: (calamaio.isEmpty)
                   ? Colors.black
                   : (pm.compareTo("p") == 0)
@@ -94,7 +94,7 @@ Widget getElementoMenu(BuildContext context, Percorribile percorribile,
                 },
                 child: CircleAvatar(
                   radius: altezza / 4, //Costanti.raggioCircleAvatar/2,
-                  child: icona(percorribile, indice, pm, altezza / 3),
+                  child: creaIcona(percorribile, indice, pm, altezza/3),//icona(percorribile, indice, pm, altezza / 3),
                   backgroundColor: (calamaio.isEmpty)
                       ? Colors.red
                       : (pm.compareTo("p") == 0)
@@ -110,7 +110,7 @@ Widget getElementoMenu(BuildContext context, Percorribile percorribile,
 
 testoCalamaio(BuildContext context, String pm, String dopoPm,
     Percorribile percorribile, int indice, double altezza) {
-  var unTesto = percorribile.testoCalamaio().elementAt(indice);
+  var unTesto = percorribile.listaIcone()[indice].nome; //.testoCalamaio().elementAt(indice);
   //final ButtonStyle style =
   //ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30));
 
@@ -138,13 +138,13 @@ testoCalamaio(BuildContext context, String pm, String dopoPm,
         ),
       ));
 }
-
+/*
 Icon icona(Percorribile percorribile, int indice, String pm, double altezza) {
-  var ic = percorribile.iconaCalamaio();
+  List<IconData> ic = percorribile.iconaCalamaio();
   IconData icdata = ic.elementAt(indice);
   var codePoint = icdata.codePoint;
   IconData(codePoint, fontFamily: 'MaterialIcons');
-  return Icon(
+  return  Icon(
     IconData(codePoint, fontFamily: 'MaterialIcons'),
     size: altezza,
     color: (pm == "p") // == 0)percorribile.getAbilitato(indice))
@@ -153,6 +153,33 @@ Icon icona(Percorribile percorribile, int indice, String pm, double altezza) {
             ? Costanti.coloreIconaMenu
             : Costanti.coloreIconaMenuO,
   );
+}
+
+ */
+Icon creaIcona(Percorribile percorribile, int indice, String pm, double altezza) {
+  return Icon(percorribile.listaIcone()[indice].icona,
+    size: altezza,
+    color: (pm == "p")
+        ? Colors.black //Costanti.coloreBgAppBar
+        : (percorribile.getAbilitato(indice))
+        ? Costanti.coloreIconaMenu
+        : Costanti.coloreIconaMenuO,);
+  /*
+  List<IconData> ic = percorribile.iconaCalamaio();
+  IconData icdata = ic.elementAt(indice);
+  var codePoint = icdata.codePoint;
+  IconData(codePoint, fontFamily: 'MaterialIcons');
+  return  Icon(
+    IconData(codePoint, fontFamily: 'MaterialIcons'),
+    size: altezza,
+    color: (pm == "p") // == 0)percorribile.getAbilitato(indice))
+        ? Colors.black //Costanti.coloreBgAppBar
+        : (percorribile.getAbilitato(indice))
+        ? Costanti.coloreIconaMenu
+        : Costanti.coloreIconaMenuO,
+  );
+
+   */
 }
 
 Widget getFrecciaIndietro(BuildContext context) {

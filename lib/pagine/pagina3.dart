@@ -1,15 +1,30 @@
 import 'package:base/pagine/percorso.dart';
 import 'package:flutter/material.dart';
+import '../utili/database/sql_helper.dart';
 import '../utili/variabili/costanti.dart';
 import '../route/funz.dart';
 import '../utili/utile.dart';
 import 'package:base/utili/variabili/global.dart' as globali;
 
-class Page3 extends StatelessWidget implements Percorribile {
+class Page3 extends StatefulWidget  {
   const Page3({Key? key}) : super(key: key);
+  @override
+  _Page3ConStato createState() => _Page3ConStato();
+}
+class _Page3ConStato extends State<Page3> implements Percorribile{
 
   double get altezza => Costanti.altezzaBarra;
-
+  late final PaginaConVideo? video;
+  @override
+  initState() {
+    if(SQLHelper.os == 'Linux') {
+      video = null;
+    }
+    else {
+      video = const PaginaConVideo();
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,26 +35,42 @@ class Page3 extends StatelessWidget implements Percorribile {
         child: AppBar(
           leading: getFrecciaIndietro(context),
           backgroundColor: Costanti.coloreBgAppBar,
-          title: getZonaTitolo(context,"Pagina 3",altezza,this),
+          title: getZonaTitolo(context,"Video",altezza,this),
 
         ),
       ),
-      body: corpo(),
+      body: corpo( context),
     );
   }
 
-  corpo() {
-    return const Center(
-      child: Text('Pagina 3'),
-    );
+  corpo(BuildContext context) {
+    if(SQLHelper.os == 'Linux') {
+      return  const Center(child: Text('Sorry'));
+    }
+    else {
+
+      return Container(
+        alignment: Alignment.center,
+        color: Colors.transparent,
+        margin: const EdgeInsets.all(10),
+        child: video,
+      );
+    }
   }
 
   void fai1(BuildContext context, int f) {
-    Utili.mostraMessaggio(context, 'Eseguo Funzione ' + f.toString(), 'msg');
+    if(video != null) {
+      video?.pausa();
+    }
+    //Utili.mostraMessaggio(context, 'Eseguo Funzione ' + f.toString(), 'msg');
   }
 
   void fai2(BuildContext context, int f) {
-    Utili.mostraMessaggio(context, 'Eseguo Funzione ' + f.toString(), 'msg');
+    //Utili.mostraMessaggio(context, 'Eseguo Funzione ' + f.toString(), 'msg');
+    if(video != null) {
+      video?.play();
+    }
+
   }
 
   @override
@@ -56,6 +87,11 @@ class Page3 extends StatelessWidget implements Percorribile {
 
   @override
   void esegui(BuildContext context, int funz) {
+    if (!getAbilitato(funz)) {
+      Utili.mostraMessaggioFondoPagina(context, "MENU' NON ATTIVO");
+      return;
+    }
+
     switch (funz) {
       case 1:
         fai1(context, funz);
@@ -72,22 +108,38 @@ class Page3 extends StatelessWidget implements Percorribile {
   void disegnaPagina() {}
   @override
   bool getAbilitato(int funz) {
-    return true;
+    if(video != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
     //throw UnimplementedError();
   }
-
+/*
   @override
   List<IconData> iconaCalamaio() {
-    return [Icons.work, Icons.account_tree, Icons.warning];
+    return const [Icons.pause, Icons.play_arrow, Icons.warning];
     ///  Icons.warning non usata e non da errore
     //throw UnimplementedError();
   }
 
+ */
+  @override
+  List<Icone> listaIcone(){
+    return [
+      Icone('Pause',Icons.pause),
+      Icone('Play',Icons.play_arrow)
+    ];
+  }
+  /*
   @override
   List<String> testoCalamaio() {
-    return ["F1", "F2"];
+    return ["Pause", "Play"];
     //throw UnimplementedError();
   }
+
+   */
 
   @override
   void cambiaNumRecordInEvidenza(

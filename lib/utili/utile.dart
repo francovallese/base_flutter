@@ -4,6 +4,7 @@ import 'package:base/pagine/percorso.dart';
 import 'package:base/utili/database/sql_helper.dart';
 import 'package:base/utili/variabili/costanti.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import '../radio.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
@@ -124,12 +125,12 @@ class Utili {
                 Text(
                   msg,
                   style: const TextStyle(
-                    fontSize: 32,
+                    fontSize: 15,
                     fontFamily: 'Raleway',
                   ),
                   strutStyle: const StrutStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 30,
+                    fontSize: 15,
                     height: 1.5,
                   ),
                 ),
@@ -496,4 +497,124 @@ class PaginaGrafica extends CustomPainter {
 
     return hslLight.toColor();
   }
+}
+///
+///
+///
+class PaginaConVideo extends StatefulWidget {
+  const PaginaConVideo({Key? key}) : super(key: key);
+
+  @override
+  PaginaConVideoState createState() => PaginaConVideoState();
+
+  void pausa() {
+    PaginaConVideoState.pausa();
+  }
+  void play() {
+    PaginaConVideoState.play();
+  }
+/*
+  ui.Image? getImmagine() {
+    return _CanvasConImmaginiState().getImg();
+  }
+
+ */
+}
+class PaginaConVideoState extends State<PaginaConVideo> {
+  static late VideoPlayerController controller;
+  late Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // trova video in assets
+    //_controller = VideoPlayerController.asset("assets/video/myVideo.mov");
+    controller = VideoPlayerController.asset(
+        "assets/video/myVideo.mov"); //.network('https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4');
+    // Initialize the controller and store the Future for later use.
+    //_initializeVideoPlayerFuture = _controller.initialize();
+    _initializeVideoPlayerFuture = controller.initialize().whenComplete(() {
+      debugPrint('initialize().whenComplete' +
+          _initializeVideoPlayerFuture.toString());
+      controller.play();
+    });
+    /*
+        _controller.play();
+      });
+
+    });
+*/
+    // Use the controller to loop the video.
+    controller.setLooping(true);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double height = width * 9 / 16;
+    return FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          // If the VideoPlayerController has finished initialization, use
+          // the data it provides to limit the aspect ratio of the video.
+          debugPrint("_controller.value.aspectRatio " +
+              controller.value.aspectRatio.toString());
+          return AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            // Use the VideoPlayer widget to display the video.
+            child: VideoPlayer(controller),
+          );
+        } else {
+          // If the VideoPlayerController is still initializing, show a
+          // loading spinner.
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+/*
+      SizedBox(
+    //height: height*0.15,
+          child:ElevatedButton(
+    onPressed: () {
+    // Wrap the play or pause in a call to `setState`. This ensures the
+    // correct icon is shown.
+    setState(() {
+    // If the video is playing, pause it.
+    if (_controller.value.isPlaying) {
+    _controller.pause();
+    } else {
+    // If the video is paused, play it.
+    _controller.play();
+    }
+    });
+    },
+    // Display the correct icon depending on the state of the player.
+    child: Icon(
+    _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+    ),
+    ))
+*/
+
+
+  }
+
+  static void pausa() {
+    controller.pause();
+  }
+  static void play() {
+    controller.play();
+  }
+  
 }

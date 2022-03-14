@@ -54,10 +54,10 @@ class _Page2ConStato extends State<Page2> implements Percorribile, Scorribile {
     return ['/page2/page2_1'];
     //throw UnimplementedError();
   }
-
+/*
   @override
   List<IconData> iconaCalamaio() {
-    return [
+    return const [
       Icons.info_outline,
       Icons.add,
       Icons.edit,
@@ -67,11 +67,25 @@ class _Page2ConStato extends State<Page2> implements Percorribile, Scorribile {
     //throw UnimplementedError();
   }
 
+ */
+  @override
+  List<Icone> listaIcone(){
+    return [
+      Icone('Info DB',Icons.info_outline),
+      Icone('Nuovo',Icons.add),
+      Icone('Varia',Icons.edit),
+      Icone('Cancella',Icons.delete),
+      Icone('Cerca per titolo',Icons.search_rounded)
+    ];
+  }
+  /*
   @override
   List<String> testoCalamaio() {
     return ["Info DB", "Nuovo", "Varia", "Cancella", "Cerca per titolo"];
     //throw UnimplementedError();
   }
+
+   */
 
   @override
   void cambiaNumRecordInEvidenza(
@@ -259,7 +273,7 @@ class _Page2ConStato extends State<Page2> implements Percorribile, Scorribile {
   Widget build(BuildContext context) => makePag(context);
 
   makePag(BuildContext context) {
-    var rigaMenu = getRigaMenu(context, 'CRUD(INVARCA+RICERCA)', this, altezza);
+    var rigaMenu = getRigaMenu(context, 'CRUD', this, altezza);
     //debugPrint("h: "+ altezza.toString());
     rigaMenu = aggiungiExtra(rigaMenu);
     return DefaultTabController(

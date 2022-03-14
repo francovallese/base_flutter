@@ -25,10 +25,17 @@ abstract class Percorribile {
   List<String> percorso();
   List<String> indirizzo();
   void esegui(BuildContext context,int funz);
-  List<IconData> iconaCalamaio();
-  List<String> testoCalamaio();
+  //List<IconData> iconaCalamaio();
+  //List<String> testoCalamaio();
   void cambiaNumRecordInEvidenza(String nuovoNumero,bool clickUtente,int tipoFunzione);
   String getNumRecordInEvidenza();
   void disegnaPagina();
   bool getAbilitato(int funz);
+  List<Icone> listaIcone();
+}
+class Icone {
+String nome;
+IconData icona;
+
+Icone(this.nome, this.icona);
 }

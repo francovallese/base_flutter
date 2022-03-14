@@ -91,13 +91,24 @@ class Page2sub1 extends StatelessWidget implements Percorribile {
     return true;
     //throw UnimplementedError();
   }
-
+/*
   @override
   List<IconData> iconaCalamaio() {
-    return [Icons.info_outline, Icons.warning, Icons.warning];
+    return const [Icons.info_outline, Icons.warning, Icons.warning];
     //throw UnimplementedError();
   }
 
+ */
+  @override
+  List<Icone> listaIcone(){
+    if (SQLHelper.os == 'Web') {
+      return [Icone('FIREBASE FIRESTORE', Icons.info_outline)];
+    }
+    else{
+      return [Icone('SQL(create table)', Icons.info_outline)];
+    }
+  }
+  /*
   @override
   List<String> testoCalamaio() {
     if (SQLHelper.os == 'Web') {
@@ -107,6 +118,8 @@ class Page2sub1 extends StatelessWidget implements Percorribile {
     }
     //throw UnimplementedError();
   }
+
+   */
 
   @override
   void cambiaNumRecordInEvidenza(

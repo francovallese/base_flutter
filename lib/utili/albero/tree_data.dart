@@ -4,15 +4,15 @@ final List<Map<String, dynamic>> treeMenu = [
     "expaned": true,
     "children": [
       {
-        "title": "Pagina 2",
+        "title": "DB",
         "expaned": true,
         "children": [
           {
-            "title": "Pagina2Sub1",
+            "title": "Info DB",
             "expaned": true,
             "children": [
               {
-                "title": "Info DB",
+                "title": "SQL(create table)",
                 "expaned": true,
                 "children": [],
               },
@@ -41,23 +41,23 @@ final List<Map<String, dynamic>> treeMenu = [
         ],
       },
       {
-        "title": "Pagina 3",
+        "title": "Video",
         "expaned": true,
         "children": [
           {
-            "title": "F1",
+            "title": "Pause",
             "expaned": true,
             "children": [],
           },
           {
-            "title": "F2",
+            "title": "Play",
             "expaned": true,
             "children": [],
           },
         ],
       },
       {
-        "title": "Radio Scelta",
+        "title": "Radio Es.",
         "expaned": true,
         "children": [],
       },

@@ -79,7 +79,9 @@ class TreeView extends StatelessWidget {
                 ? Colors.amberAccent //Costanti.coloreBgCalamaioPag
                 : Costanti.coloreFgTestoBottoneTree,
           ))) : Text(item[titleKey],style: TextStyle(
-        color: (item[titleKey].toString().startsWith("P") ||
+        color: (item[titleKey].toString().startsWith("DB") ||
+            item[titleKey].toString().startsWith("Video") ||
+            item[titleKey].toString().startsWith("Info DB") ||
             item[titleKey].toString().startsWith("pagine") ||
             item[titleKey].toString().startsWith("route") ||
             item[titleKey].toString().startsWith("utili") ||

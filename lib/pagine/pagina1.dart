@@ -30,6 +30,7 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
   Widget build(BuildContext context) {
     //creaAreaTesto();
     miaApp();
+    /*
     final double lar = MediaQuery
         .of(context)
         .size
@@ -38,6 +39,8 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
         .of(context)
         .size
         .height * 0.8;
+
+     */
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(
@@ -226,7 +229,7 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
 
   Future<void> fai1(BuildContext context, int f) async {
     String msg =
-        "RADIO SCELTA funzione " + f.toString() + "\n Scelta Menu con:";
+        "Scelta Menu:";
     List<String> scelte = Costanti.scelteGruppoOpzioniMenu;
     int inEvidenza = globali.gruppoRadioMenu;
     await Utili.mostraRadioScelta(context, scelte, inEvidenza, msg, this);
@@ -257,18 +260,30 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
     return true;
     //throw UnimplementedError();
   }
-
+/*
   @override
   List<IconData> iconaCalamaio() {
-    return [Icons.archive, Icons.search, Icons.warning];
+    return const [Icons.archive, Icons.video_call, Icons.warning];
     //throw UnimplementedError();
   }
 
+ */
+  @override
+  List<Icone> listaIcone(){
+    return [
+      Icone('DB',Icons.archive),
+      Icone('Video',Icons.video_call),
+      Icone('Radio Es.',Icons.warning)
+    ];
+  }
+  /*
   @override
   List<String> testoCalamaio() {
-    return ["Pagina 2", "Pagina 3", "Es. Radio test"];
+    return ["DB", "Video", "Radio Es."];
     //throw UnimplementedError();
   }
+
+   */
 
   @override
   void cambiaNumRecordInEvidenza(
