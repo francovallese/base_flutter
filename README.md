@@ -5,7 +5,7 @@
 - Insert Tooltip in pagina 1 TreeView.
 - remove Tooltip insert AlertDialog
 - checked the use on my mobile(still a size problem in AppBar)
-
+- insert myVideo.mov (buttons Pause,Play) problems in linux controller.initialize() not work.
 
 
 ## Getting Started
