@@ -13,6 +13,11 @@ import 'package:base/utili/variabili/global.dart' as globali;
 import 'package:path/path.dart';
 
 class Utili {
+
+  static double gradiToRadianti(double degree) {
+    return degree * (pi / 180.0);
+  }
+
   static Future<void> mostraMessaggioFondoPagina(
       BuildContext context, String unMessaggio) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

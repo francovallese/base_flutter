@@ -18,7 +18,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0-69.2.beta <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
+#  sdk: ">=2.17.0-69.2.beta <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,14 +37,14 @@ dependencies:
   # getsione sqlite
   sqflite: ^2.0.2
   sqflite_common_ffi: ^2.1.0+2
-  # english_words: ^4.0.0
+  # gestione RottaPagine.generateRoute
   flutter_localized_locales: ^2.0.3
   # per andare a fine lista (nuovo record)
   scrollable_positioned_list: ^0.2.3
   # gestione firestore db
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.10
-  cloud_firestore: ^3.1.9
+  cloud_firestore: ^3.1.10
   # gestione Video
   video_player: ^2.3.0
 
@@ -78,6 +79,8 @@ flutter:
     - assets/images/fire.png
     - assets/images/zizzo.png
     - assets/video/myVideo.mov
+    - assets/3D/tetraedro.obj
+    - assets/3D/tetraedro.mtl
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

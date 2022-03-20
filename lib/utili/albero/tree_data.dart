@@ -57,6 +57,22 @@ final List<Map<String, dynamic>> treeMenu = [
         ],
       },
       {
+        "title": "3D",
+        "expaned": true,
+        "children": [
+          {
+            "title": "Zoom+",
+            "expaned": true,
+            "children": [],
+          },
+          {
+            "title": "Zoom-",
+            "expaned": true,
+            "children": [],
+          },
+        ],
+      },
+      {
         "title": "Radio Es.",
         "expaned": true,
         "children": [],
@@ -91,6 +107,11 @@ final List<Map<String, dynamic>> treeApp = [
           },
           {
             "title": "pagina3.dart",
+            "expaned": true,
+            "children": [],
+          },
+          {
+            "title": "pagina4.dart",
             "expaned": true,
             "children": [],
           },
@@ -163,6 +184,27 @@ final List<Map<String, dynamic>> treeApp = [
               },
               {
                 "title": "visual.dart",
+                "expaned": true,
+                "children": [],
+              },
+            ],
+          },
+          {
+            "title": "solidi",
+            "expaned": true,
+            "children": [
+              {
+                "title": "dipingi.dart",
+                "expaned": true,
+                "children": [],
+              },
+              {
+                "title": "modello.dart",
+                "expaned": true,
+                "children": [],
+              },
+              {
+                "title": "solido.dart",
                 "expaned": true,
                 "children": [],
               },

@@ -75,6 +75,7 @@ class TreeView extends StatelessWidget {
                 item[titleKey].toString().startsWith("utili") ||
                 item[titleKey].toString().startsWith("albero") ||
                 item[titleKey].toString().startsWith("database") ||
+                item[titleKey].toString().startsWith("solidi") ||
                 item[titleKey].toString().startsWith("variabili"))
                 ? Colors.amberAccent //Costanti.coloreBgCalamaioPag
                 : Costanti.coloreFgTestoBottoneTree,
@@ -87,6 +88,7 @@ class TreeView extends StatelessWidget {
             item[titleKey].toString().startsWith("utili") ||
             item[titleKey].toString().startsWith("albero") ||
             item[titleKey].toString().startsWith("database") ||
+            item[titleKey].toString().startsWith("solidi") ||
             item[titleKey].toString().startsWith("variabili"))
             ? Costanti.coloreBgCalamaioPag
             : Costanti.coloreBgCalamaioMenu,
@@ -112,7 +114,7 @@ class TreeView extends StatelessWidget {
   bool bottone(String item) {
 
     var bottoni =
-    {'rotta.dart','percorso.dart','scorrimento.dart','funz.dart','invarca_funzioni.dart','visual.dart','sql_helper.dart'};
+    {'rotta.dart','percorso.dart','scorrimento.dart','funz.dart','invarca_funzioni.dart','visual.dart','sql_helper.dart','solido.dart'};
     bool ret = false;
     if(bottoni.contains(item)) {
       ret=true;

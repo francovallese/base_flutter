@@ -6,6 +6,7 @@
 - remove Tooltip insert AlertDialog
 - checked the use on my mobile(still a size problem in AppBar)
 - insert myVideo.mov (buttons Pause,Play) problems in linux controller.initialize() not work.
+- insert Pag. 4 with 3D graphics.
 
 
 ## Getting Started

@@ -208,6 +208,24 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
     "\ne altro...";
     unTesto =  ret;
     }
+    else if (nomeFile.startsWith('solido')) {
+      String ret =
+          "La classe Solido viene lanciata da pagina 4 con 2 parametri"
+          "\nzoom e path: assets/3D/tetraedro.obj"
+          "\ntetraedro.obj e tetraedro.mtl rappresentano i dati del solido."
+          "\nIn particolare:"
+          "\n        nel file tetraedro.obj"
+          "\n  v 0.000000 1.000000 0.000000 un vertice di coordinate x y z."
+          "\n  f 1 2 3 i vertici in senso antiorario della faccia F1."
+          "\n        nel file tetraedro.mtl"
+          "\n  Kd 0.000000 0.000000 1.000000 il colore della faccia F1."
+          "\nIn modello.dart la classe Modello raccoglie i parametri del solido."
+          "\nIn dipingi.dart la classe PaintSolido3D dove:"
+          "\n  void _paintFaccia(Canvas canvas, List<int> faccia, Color colore)"
+          "\nrappresenta il punto di arrivo della grafica 3D."
+          "\nNOTA:I files obj e mtl sono stati ricavati con Blender(free).";
+      unTesto =  ret;
+    }
     if(unTesto != "") {
       Utili.mostraMessaggio(context, 'Info '+nomeFile , unTesto);
     }
@@ -217,13 +235,13 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
 
   @override
   List<String> percorso() {
-    return ['p.2.0', 'p.3.0', 'm.1'];
+    return ['p.2.0', 'p.3.0', 'p.4.0', 'm.1'];
     //throw UnimplementedError();
   }
 
   @override
   List<String> indirizzo() {
-    return ['/page2', '/page3'];
+    return ['/page2', '/page3', '/page4'];
     //throw UnimplementedError();
   }
 
@@ -273,6 +291,7 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
     return [
       Icone('DB',Icons.archive),
       Icone('Video',Icons.video_call),
+      Icone('3D',Icons.view_in_ar),
       Icone('Radio Es.',Icons.warning)
     ];
   }
