@@ -79,6 +79,8 @@ flutter:
     - assets/images/fire.png
     - assets/images/zizzo.png
     - assets/video/myVideo.mov
+    - assets/3D/cubo.obj
+    - assets/3D/cubo.mtl
     - assets/3D/tetraedro.obj
     - assets/3D/tetraedro.mtl
 

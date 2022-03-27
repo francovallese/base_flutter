@@ -46,7 +46,9 @@ class Costanti {
   static const int cancellaRecord = 3;
   static const int ricercaRecord = 4;
   static const int evidenzaRecord = 5;
-
+  // SOLIDO 3D
+  static const String cubo = 'assets/3D/cubo.obj';
+  static const String tetraedro = 'assets/3D/tetraedro.obj';
   // TIPO LISTA
   static bool completa = true; // se false RICERCA
 

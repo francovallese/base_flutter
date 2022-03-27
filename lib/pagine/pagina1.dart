@@ -211,13 +211,13 @@ class _Page1ConStato extends State<Page1> implements Percorribile {
     else if (nomeFile.startsWith('solido')) {
       String ret =
           "La classe Solido viene lanciata da pagina 4 con 2 parametri"
-          "\nzoom e path: assets/3D/tetraedro.obj"
-          "\ntetraedro.obj e tetraedro.mtl rappresentano i dati del solido."
+          "\nzoom e path: assets/3D/cubo.obj"
+          "\ncubo.obj e cubo.mtl rappresentano i dati del solido."
           "\nIn particolare:"
-          "\n        nel file tetraedro.obj"
+          "\n        nel file cubo.obj"
           "\n  v 0.000000 1.000000 0.000000 un vertice di coordinate x y z."
           "\n  f 1 2 3 i vertici in senso antiorario della faccia F1."
-          "\n        nel file tetraedro.mtl"
+          "\n        nel file cubo.mtl"
           "\n  Kd 0.000000 0.000000 1.000000 il colore della faccia F1."
           "\nIn modello.dart la classe Modello raccoglie i parametri del solido."
           "\nIn dipingi.dart la classe PaintSolido3D dove:"

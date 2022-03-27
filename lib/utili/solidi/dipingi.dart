@@ -25,22 +25,18 @@ class PaintSolido3D extends CustomPainter {
   mat.Vector3 _calcoloVertici(mat.Vector3 vertex) {
     var trans = mat.Matrix4.translationValues(_viewPortX, _viewPortY, 1);
     trans.scale(zoom, -zoom);
+
     trans.rotateX(Utili.gradiToRadianti(alfaX));
     trans.rotateY(Utili.gradiToRadianti(alfaY));
     trans.rotateZ(Utili.gradiToRadianti(alfaZ));
+
     mat.Vector3 ret = trans.transform3(vertex);
+
     return ret;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    /// ------ SFONDO
-    Size sizeSfondo = Size(size.width, size.height);
-    var paint1 = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 10;
-    canvas.drawRect(const Offset(0, 0) & sizeSfondo, paint1);
-
     vertici = [];
     for (int i = 0; i < modello.vertici.length; i++) {
       vertici.add(_calcoloVertici(mat.Vector3.copy(modello.vertici[i])));
@@ -54,20 +50,23 @@ class PaintSolido3D extends CustomPainter {
     // Ordinamento
     List<Map<String, dynamic>> ordinamento = [];
     for (var i = 0; i < modello.facce.length; i++) {
-      var faccia = modello.facce[i];
-      var v1 = vertici[faccia[0] - 1];
-      var v2 = vertici[faccia[1] - 1];
-      var v3 = vertici[faccia[2] - 1];
-      var distZ = (v1.z + v2.z + v3.z) / 3;
+      var verticiFaccia = modello.facce[i];
+      var v1 = vertici[verticiFaccia[0] - 1];
+      var v2 = vertici[verticiFaccia[1] - 1];
+      var v3 = vertici[verticiFaccia[2] - 1];
+      var distZ = (v1.z + v2.z + v3.z)  / 3;
+      //debugPrint("->"+ i.toString()+ " " +distZ.toString());
       ordinamento.add({"index": i, "order": distZ});
     }
     ordinamento.sort((Map a, Map b) => a["order"].compareTo(b["order"]));
 
     // DISEGNA FACCE
     for (int i = 0; i < ordinamento.length; i++) {
-      var faccia = modello.facce[ordinamento[i]["index"]];
-      var colore = modello.colori[ordinamento[i]["index"]];
-      _paintFaccia(canvas, faccia, colore);
+      var verticiFaccia = modello.facce[ordinamento[i]["index"]];
+      String unNomeColore = modello.nomeColoreFaccia[ordinamento[i]["index"]];
+      //debugPrint("->"+ unNomeColore);
+      Color colore = trovaColore(unNomeColore);
+      _paintFaccia(canvas, verticiFaccia, colore);
     }
   }
 
@@ -75,11 +74,18 @@ class PaintSolido3D extends CustomPainter {
   bool shouldRepaint(PaintSolido3D oldDelegate) {
     return true;
   }
-  void _paintFaccia(Canvas canvas, List<int> faccia, Color colore) {
-    var v1 = vertici[faccia[0] - 1];
-    var v2 = vertici[faccia[1] - 1];
-    var v3 = vertici[faccia[2] - 1];
+  bool _triangoloVisibile(double ax, double ay, double bx, double by, double cx, double cy) {
+    double area = (bx - ax) * (cy - ay) - (cx - ax) * (by - ay);
+    return area <= 0;
+  }
+  void _paintFaccia(Canvas canvas, List<int> verticiFaccia, Color colore) {
+    var v1 = vertici[verticiFaccia[0] - 1];
+    var v2 = vertici[verticiFaccia[1] - 1];
+    var v3 = vertici[verticiFaccia[2] - 1];
 
+    if(!_triangoloVisibile(v1.x,v1.y,v2.x,v2.y,v3.x,v3.y)) {
+      return;
+    }
     // Luminosità
     mat.Vector3 s1 = mat.Vector3.copy(v2);
     s1.sub(v1);
@@ -100,16 +106,104 @@ class PaintSolido3D extends CustomPainter {
     var g = (illuminazione * colore.green).toInt();
     var b = (illuminazione * colore.blue).toInt();
 
-    var paint = Paint();
-    paint.color = Color.fromARGB(255, r, g, b);
-    paint.style = PaintingStyle.fill;
+    canvas.save();
+
+    var corpo = Paint();
+    corpo.color = Color.fromARGB(255, r, g, b);
+    corpo.style = PaintingStyle.fill;
+    corpo.strokeWidth = 0;
+
+    var bordo = Paint();
+    bordo.color = corpo.color;
+    bordo.style = PaintingStyle.stroke;
+    bordo.strokeCap = StrokeCap.round;
+    bordo.strokeWidth = 1;
 
     var path = Path();
     path.moveTo(v1.x, v1.y);
     path.lineTo(v2.x, v2.y);
     path.lineTo(v3.x, v3.y);
+    if (verticiFaccia.length == 4) {
+      //debugPrint("len:" + verticiFaccia.length.toString());
+      var v4 = vertici[verticiFaccia[3] - 1];
+      //debugPrint("V4: " + v4.toString());
+      path.lineTo(v4.x, v4.y);
+    }
     path.lineTo(v1.x, v1.y);
     path.close();
-    canvas.drawPath(path, paint);
+    canvas.drawPath(path, corpo);
+    canvas.drawPath(path, bordo);
+
+    /// ------ TESTO DEI DATI
+
+    String testo = "α(y): " + alfaY.toInt().toString()+'°';
+    var textStyle = const TextStyle(
+      fontSize: 20,
+
+/*
+      color: Colors.black,
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+      fontStyle: FontStyle.italic,
+      fontFamily: 'Roboto'
+
+
+ */
+
+    );
+
+    var textSpan = TextSpan(
+      text: testo,
+      style: textStyle,
+    );
+
+    TextPainter textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width/2,
+    );
+    //var len = textPainter.size;
+    var offset = const Offset(10, 10); //Offset((size.width - len.width) / 2, size.height/2);
+    textPainter.paint(canvas, offset);
+
+    testo = "α(x): "+ alfaX.toInt().toString()+'°';
+
+    textSpan = TextSpan(
+      text: testo,
+      style: textStyle,
+    );
+
+    textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width/2,
+    );
+    //len = textPainter.size;
+    offset = const Offset(10, 30); //Offset((size.width - len.width) / 2, size.height/2);
+    textPainter.paint(canvas, offset);
+
+
+
+
+    canvas.restore();
+  }
+
+  Color trovaColore(String unNomeColore) {
+    Color c = Colors.transparent;
+    if (modello.materiali.isNotEmpty) {
+      if (modello.materiali.containsKey(unNomeColore)) {
+        Color? test = modello.materiali[unNomeColore];
+        if (test != null) {
+          c = test;
+        }
+      }
+    }
+    return c;
   }
 }

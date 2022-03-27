@@ -5,6 +5,7 @@ class Modello {
   Modello() {/* */}
   List<Vector3> vertici = [];
   List<List<int>> facce = [];
+  List<String> nomeColoreFaccia = [];
   List<Color> colori = [];
   Map<String, Color> materiali = {}; //Solo colore
 
@@ -16,6 +17,7 @@ class Modello {
   Future<String> analizzaObj(String string) async {
     String ret = "";
     String nomeFilemtl = "";
+    String codiceColoreAttuale = "";
     List<String> lines = string.split("\n");
     for (var line in lines) {
       if (line.startsWith("v ")) {
@@ -27,16 +29,23 @@ class Modello {
         ));
       } else if (line.startsWith("f ")) {
         var values = line.substring(2).split(" ");
-        facce.add(List.from([
-          int.parse(values[0].split("/")[0]),
-          int.parse(values[1].split("/")[0]),
-          int.parse(values[2].split("/")[0]),
-        ]));
+        List<int> nn = [];
+        for(int i = 0; i<values.length;i++){
+          int iv = int.parse(values[i].split("/")[0]);
+          nn.add(iv);
+        }
+        facce.add(nn);
+        nomeColoreFaccia.add(codiceColoreAttuale);
       } else if (line.startsWith("mtllib ")) {
         nomeFilemtl = line.substring(7);
-      }
+      } else if (line.startsWith("usemtl ")) {
+        codiceColoreAttuale = line.substring(7).trim();
+
+
+    }
     }
     ret = nomeFilemtl;
+    //debugPrint("->"+ nomeColoreFaccia.toString());
     return ret;
   }
 
