@@ -2,13 +2,16 @@ import 'dipingi.dart';
 import 'modello.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
+import '../variabili/costanti.dart';
 
 class Solido extends StatefulWidget {
   final String path;
   final double zoom;
   final double alfaXini;
   final double alfaYini;
-  const Solido({Key? key, required this.path, required this.zoom, required this.alfaXini, required this.alfaYini})
+  final bool animato;
+  const Solido({Key? key, required this.path, required this.zoom, required this.alfaXini, required this.alfaYini, required this.animato})
       : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class _SolidoState extends State<Solido> {
   double alfaX = 0.0;
   double alfaY = 0.0;
   double alfaZ = 0.0;
-  //double zoom = 0.0;
+  late Timer _timer;
   Modello modello = Modello();
 
   @override
@@ -33,6 +36,11 @@ class _SolidoState extends State<Solido> {
           modello.caricaMateriali(value).then((value) {
             alfaX = widget.alfaXini; //15; //14.321350097;
             alfaY = widget.alfaYini;//150; //71.777221679;
+            if(widget.animato){
+              _timer = Timer.periodic(
+                  Duration(milliseconds: Costanti.animazioneMillisec*2),
+                      (Timer _timer) => _eseguiRotazione());
+            }
             setState(() {});
           });
         });
@@ -40,7 +48,21 @@ class _SolidoState extends State<Solido> {
     });
     super.initState();
   }
-
+  _eseguiRotazione() {
+    alfaY += 1;
+    if (alfaY > 360) {
+      alfaY = alfaY - 360;
+    } else if (alfaY < 0) {
+      alfaY = 360 - alfaY;
+    }
+    alfaX += 1;
+    if (alfaX > 360) {
+      alfaX = alfaX - 360;
+    } else if (alfaX < 0) {
+      alfaX = 360 - alfaX;
+    }
+    setState(() {});
+  }
   _ruota(DragUpdateDetails update) {
 
     alfaY += update.delta.dx;
@@ -74,5 +96,14 @@ class _SolidoState extends State<Solido> {
         _ruota(update);
       },
     );
+  }
+  @override
+  void dispose() {
+    if(widget.animato) {
+      if (_timer.isActive) {
+        _timer.cancel();
+      }
+    }
+    super.dispose();
   }
 }

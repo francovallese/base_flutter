@@ -138,17 +138,10 @@ class PaintSolido3D extends CustomPainter {
 
     String testo = "α(y): " + alfaY.toInt().toString()+'°';
     var textStyle = const TextStyle(
-      fontSize: 20,
-
-/*
-      color: Colors.black,
-      fontSize: 12,
-      fontWeight: FontWeight.normal,
-      fontStyle: FontStyle.italic,
-      fontFamily: 'Roboto'
-
-
- */
+      fontSize: 14,
+      fontFamily: 'Roboto-Light',
+      fontWeight: FontWeight.w300, // light
+      fontStyle: FontStyle.italic, // italic
 
     );
 
@@ -170,7 +163,6 @@ class PaintSolido3D extends CustomPainter {
     textPainter.paint(canvas, offset);
 
     testo = "α(x): "+ alfaX.toInt().toString()+'°';
-
     textSpan = TextSpan(
       text: testo,
       style: textStyle,
@@ -185,7 +177,7 @@ class PaintSolido3D extends CustomPainter {
       maxWidth: size.width/2,
     );
     //len = textPainter.size;
-    offset = const Offset(10, 30); //Offset((size.width - len.width) / 2, size.height/2);
+    offset = const Offset(10, 40); //Offset((size.width - len.width) / 2, size.height/2);
     textPainter.paint(canvas, offset);
 
 

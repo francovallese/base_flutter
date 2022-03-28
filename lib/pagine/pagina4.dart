@@ -35,7 +35,7 @@ class _Page4ConStato extends State<Page4> implements Percorribile {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight((globali.gruppoRadioMenu == 2) ? altezza : altezza),
+        Size.fromHeight((globali.gruppoRadioMenu == 2) ? altezza : altezza),
         child: AppBar(
           leading: getFrecciaIndietro(context),
           backgroundColor: Costanti.coloreBgAppBar,
@@ -73,6 +73,7 @@ class _Page4ConStato extends State<Page4> implements Percorribile {
                         path: Costanti.cubo,
                         alfaXini:15,
                         alfaYini:150,
+                        animato:true,
                       ))),
               Container(
                   alignment: Alignment.centerRight,
@@ -83,6 +84,7 @@ class _Page4ConStato extends State<Page4> implements Percorribile {
                         path: Costanti.tetraedro,
                         alfaXini:15,
                         alfaYini:150,
+                        animato:false,
                       ))),
             ],
           )),
@@ -149,7 +151,6 @@ class _Page4ConStato extends State<Page4> implements Percorribile {
     return ["Pause", "Play"];
     //throw UnimplementedError();
   }
-
    */
 
   @override
